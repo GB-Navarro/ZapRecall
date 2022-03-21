@@ -90,7 +90,7 @@ export default function Questions() {
               {props.question}
             </div>
             <div className="answerArrow">
-              <img src="./assets/img/setinha.png" />
+              <img src="./assets/img/setinha.png" onClick={console.log("salve")} />
             </div>
           </div>
           <div className="questionStage3 hide">
