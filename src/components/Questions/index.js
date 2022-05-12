@@ -47,6 +47,7 @@ const QUESTIONSARRAY = [
 ];
 
 export default function Questions() {
+  const [count, setCount] = React.useState(0);
   return (
     <>
       <section className="screen2 hide">
@@ -59,11 +60,11 @@ export default function Questions() {
         <main className="questions">
           {QUESTIONSARRAY.map((question) => {
             return (
-              <Question key={question.id} question={question.question} answer={question.answer} />
+              <Question key={question.id} question={question.question} answer={question.answer} completed={count} setCompleted={setCount}/>
             );
           })}
         </main>
-        <Footer />
+        <Footer completed={count}/>
       </section>
     </>
 
@@ -79,6 +80,7 @@ function Question(props) {
   const [check, setCheck] = React.useState(false);
   const [doubt, setDoubt] = React.useState(false);
   const [error, setError] = React.useState(false);
+  
   return (
     <>
       <div className="questions">
@@ -107,18 +109,21 @@ function Question(props) {
           <div className="status">
             <div className="dontRemember" onClick={() => {
               setStage3(false);
-              setStage4(true)
-              setError(true)
+              setStage4(true);
+              setError(true);
+              props.setCompleted(props.completed + 1);
             }}> Não lembrei</div>
             <div className="almostDontRemember" onClick={() => {
               setStage3(false);
-              setStage4(true)
-              setDoubt(true)
+              setStage4(true);
+              setDoubt(true);
+              props.setCompleted(props.completed + 1);
             }}> Quase não lembrei</div>
             <div className="zap" onClick={() => {
               setStage3(false);
-              setStage4(true)
-              setCheck(true)
+              setStage4(true);
+              setCheck(true);
+              props.setCompleted(props.completed + 1);
             }}> Zap! </div>
           </div>
         </div>

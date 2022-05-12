@@ -1,6 +1,6 @@
 import "./css/style.css";
 
-export default function Footer(){
+export default function Footer(props){
     let contador = 0;
     const numberOfQuestions = 8;
     return (
@@ -19,7 +19,7 @@ export default function Footer(){
                 </div>
             </div>
             <div className="conclusionNumbers">
-                <p> {contador}/{numberOfQuestions} CONCLUÍDOS </p>
+                <p> {props.completed}/{numberOfQuestions} CONCLUÍDOS </p>
             </div>
         </footer>
     )
