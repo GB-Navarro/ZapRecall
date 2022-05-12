@@ -1,0 +1,17 @@
+.questionsFooter {
+    width: 100%;
+    background-color: #FFFFFF;
+    font-size: 18px;
+    color: #333333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 0px;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.conclusionMessages div p {
+    font-family: 'Recursive', sans-serif;
+}

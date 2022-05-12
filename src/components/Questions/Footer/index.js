@@ -1,4 +1,6 @@
-export default function QuestionsFooter(){
+import "./css/style.css";
+
+export default function Footer(){
     let contador = 0;
     const numberOfQuestions = 8;
     return (

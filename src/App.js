@@ -1,6 +1,6 @@
 import "./styles.css";
-import Home from "./Home";
-import Questions from "./Questions";
+import Home from "./components/Home";
+import Questions from "./components/Questions";
 
 export default function App() {
   return (
