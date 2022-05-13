@@ -98,9 +98,6 @@ const SCRAMBLEDNARUTOQUESTIONS = shuffleArray(NARUTOQUESTIONS)
 
 export default function Questions() {
   const [count, setCount] = React.useState(0);
-  const [checkIcon, setCheckIcon] = React.useState(0);
-  const [doubtIcon, setDoubtIcon] = React.useState(0);
-  const [errorIcon, setErrorIcon] = React.useState(0);
 
   return (
     <>
@@ -115,8 +112,7 @@ export default function Questions() {
           {SCRAMBLEDREACTQUESTIONS.map((question, index) => {
             return (
               <Question key={question.id} question={question.question} answer={question.answer}
-                completed={count} setCompleted={setCount} index={index} checkIcon={checkIcon} setCheckIcon={setCheckIcon}
-                doubtIcon={doubtIcon} setDoubtIcon={setDoubtIcon} errorIcon={errorIcon} setErrorIcon={setErrorIcon} />
+                completed={count} setCompleted={setCount} index={index}/>
             );
           })}
         </main>
@@ -132,6 +128,7 @@ export default function Questions() {
 function Question(props) {
   const [stage, setStage] = React.useState("stage1");
   const [status, setStatus] = React.useState("");
+  
   const [checkPlay] = useSound(acertou);
   const [doubtPlay] = useSound(naosei);
   const [errorPlay] = useSound(errou);
