@@ -3,7 +3,7 @@ import { useState } from 'react';
 import "./css/style.css";
 import Footer from './Footer'
 
-const QUESTIONSARRAY = [
+const QUESTIONS = [
   {
     question: "O que é JSX?",
     answer: "Uma extensão de linguagem do JavaScript",
@@ -46,6 +46,8 @@ const QUESTIONSARRAY = [
   }
 ];
 
+const SCRAMBLEDQUESTIONS = shuffleArray(QUESTIONS);
+
 export default function Questions() {
   const [count, setCount] = React.useState(0);
   return (
@@ -58,7 +60,7 @@ export default function Questions() {
           <div className="questionsHeaderText"><b>ZapRecall</b></div>
         </header>
         <main className="questions">
-          {QUESTIONSARRAY.map((question) => {
+          {SCRAMBLEDQUESTIONS.map((question) => {
             return (
               <Question key={question.id} question={question.question} answer={question.answer} completed={count} setCompleted={setCount}/>
             );
@@ -141,3 +143,10 @@ function Question(props) {
   );
 }
 
+function shuffleArray(arr){
+  for(let i = (arr.length - 1); i > 0; i --){
+    const randomNumber = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[randomNumber]] = [arr[randomNumber], arr[i]];
+  }
+  return arr;
+}
