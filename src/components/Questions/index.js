@@ -1,6 +1,10 @@
 import React from 'react';
 import "./css/style.css";
 import Footer from './Footer'
+import useSound from "use-sound";
+import acertou from "./assets/audio/acertou.mp3";
+import naosei from "./assets/audio/naosei.mp3";
+import errou from "./assets/audio/errou.mp3";
 
 const QUESTIONS = [
   {
@@ -49,6 +53,7 @@ const SCRAMBLEDQUESTIONS = shuffleArray(QUESTIONS);
 
 export default function Questions() {
   const [count, setCount] = React.useState(0);
+
   return (
     <>
       <section className="screen2 hide">
@@ -81,7 +86,10 @@ function Question(props) {
   const [check, setCheck] = React.useState(false);
   const [doubt, setDoubt] = React.useState(false);
   const [error, setError] = React.useState(false);
-  
+  const [checkPlay] = useSound(acertou);
+  const [doubtPlay] = useSound(naosei);
+  const [errorPlay] = useSound(errou);
+
   return (
     <>
       <div className="questions">
@@ -112,18 +120,21 @@ function Question(props) {
               setStage3(false);
               setStage4(true);
               setError(true);
+              errorPlay();
               props.setCompleted(props.completed + 1);
             }}> Não lembrei</div>
             <div className="almostDontRemember" onClick={() => {
               setStage3(false);
               setStage4(true);
               setDoubt(true);
+              doubtPlay();
               props.setCompleted(props.completed + 1);
             }}> Quase não lembrei</div>
             <div className="zap" onClick={() => {
               setStage3(false);
               setStage4(true);
               setCheck(true);
+              checkPlay();
               props.setCompleted(props.completed + 1);
             }}> Zap! </div>
           </div>
