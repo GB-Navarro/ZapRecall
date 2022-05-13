@@ -21,6 +21,9 @@ export default function Footer(props){
             <div className="conclusionNumbers">
                 <p> {props.completed}/{numberOfQuestions} CONCLUÍDOS </p>
             </div>
+            <div className="conclusionIcons">
+                {props.children}
+            </div>
         </footer>
     )
 }

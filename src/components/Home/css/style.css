@@ -14,7 +14,39 @@ main {
     font-weight: bold;
 }
 
-.homeImage {
+label{
+    font-family: 'Righteous', cursive;
+    font-size:20px;
+}
+.decks{
+    width: 50vw;
+    margin-bottom:18px;
+}
+.decks select{
+    width: 50vw;
+    height: 7vh;
+    border: 1px solid #FFFFFF;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    color:#ADADAD;
+    background-color: #FFFFFF;
+    font-family: 'Roboto', sans-serif;
+}
+
+.zapGoals{
+    width: 50vw;
+    margin-bottom:35px;
+}
+
+.zapGoals input{
+    width: 45vw;
+    height: 5vh;
+    border: 1px solid #FFFFFF;
+    border-radius: 5px;
+    font-size: 14px;
+    color:#ADADAD;
+    font-family: 'Roboto', sans-serif;
 }
 
 .startRecall {

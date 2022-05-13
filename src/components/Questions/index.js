@@ -6,7 +6,7 @@ import acertou from "./assets/audio/acertou.mp3";
 import naosei from "./assets/audio/naosei.mp3";
 import errou from "./assets/audio/errou.mp3";
 
-const QUESTIONS = [
+const REACTQUESTIONS = [
   {
     question: "O que é JSX?",
     answer: "Uma extensão de linguagem do JavaScript",
@@ -49,10 +49,58 @@ const QUESTIONS = [
   }
 ];
 
-const SCRAMBLEDQUESTIONS = shuffleArray(QUESTIONS);
+const NARUTOQUESTIONS = [
+  {
+    question: "Como a akatsuki armazenava os arquivos dos jinchuurikis que eles capturavam ?",
+    answer: "No Pain-drive",
+    id: 1
+  },
+  {
+    question: "Qual é a personagem de naruto favorita do Compadre Washington ?",
+    answer: "É a Ino (Sabe de nada Ino-cente)",
+    id: 2
+  },
+  {
+    question: "Qual é o ninja que sempre tá dando um espetáculo ?",
+    answer: "É o Show-ji",
+    id: 3
+  },
+  {
+    question: "Qual é o cha que o kakashi nunca encontra pra tomar ?",
+    answer: "É o Chá-kra",
+    id: 4
+  },
+  {
+    question: "Porque o sharingan é vermelho ?",
+    answer: "É pra ver-melhor",
+    id: 5
+  },
+  {
+    question: "Quando o Tobi se machuca, quem cuida dele ?",
+    answer: "É o SARU-Tobi",
+    id: 6
+  },
+  {
+    question: "Quem é o ninja que mais curte um heavy metal ?",
+    answer: "É o ROCK-lee",
+    id: 7
+  },
+  {
+    question: "Qual é a ninja médica que tem cura até no nome ?",
+    answer: "É a Sa-KURA Haruno",
+    id: 8
+  }
+];
+
+
+const SCRAMBLEDREACTQUESTIONS = shuffleArray(REACTQUESTIONS);
+const SCRAMBLEDNARUTOQUESTIONS = shuffleArray(NARUTOQUESTIONS)
 
 export default function Questions() {
   const [count, setCount] = React.useState(0);
+  const [checkIcon, setCheckIcon] = React.useState(0);
+  const [doubtIcon, setDoubtIcon] = React.useState(0);
+  const [errorIcon, setErrorIcon] = React.useState(0);
 
   return (
     <>
@@ -64,13 +112,17 @@ export default function Questions() {
           <div className="questionsHeaderText"><b>ZapRecall</b></div>
         </header>
         <main className="questions">
-          {SCRAMBLEDQUESTIONS.map((question, index) => {
+          {SCRAMBLEDREACTQUESTIONS.map((question, index) => {
             return (
-              <Question key={question.id} question={question.question} answer={question.answer} completed={count} setCompleted={setCount} index={index}/>
+              <Question key={question.id} question={question.question} answer={question.answer}
+                completed={count} setCompleted={setCount} index={index} checkIcon={checkIcon} setCheckIcon={setCheckIcon}
+                doubtIcon={doubtIcon} setDoubtIcon={setDoubtIcon} errorIcon={errorIcon} setErrorIcon={setErrorIcon} />
             );
           })}
         </main>
-        <Footer completed={count}/>
+        <Footer completed={count}>
+
+        </Footer>
       </section>
     </>
 
@@ -78,83 +130,96 @@ export default function Questions() {
 }
 
 function Question(props) {
-
-  const [stage1, setStage1] = React.useState(true);
-  const [stage2, setStage2] = React.useState(false);
-  const [stage3, setStage3] = React.useState(false);
-  const [stage4, setStage4] = React.useState(false);
-  const [check, setCheck] = React.useState(false);
-  const [doubt, setDoubt] = React.useState(false);
-  const [error, setError] = React.useState(false);
+  const [stage, setStage] = React.useState("stage1");
+  const [status, setStatus] = React.useState("");
   const [checkPlay] = useSound(acertou);
   const [doubtPlay] = useSound(naosei);
   const [errorPlay] = useSound(errou);
 
-  return (
-    <>
-      <div className="questions">
-        <div className={stage1 === true ? "questionStage1" : "questionStage1 hide"} onClick={() => {
-          setStage1(false)
-          setStage2(true)
-        }}>
-          <p>Pergunta {(props.index + 1)}</p>
-          <span className="arrowIcon"><ion-icon name="play-outline"></ion-icon></span>
-        </div>
-        <div className={stage2 === false ? "questionStage2 hide" : "questionStage2"} >
-          <div className="questionTittle">
-            {props.question}
+  if (stage === "stage1") {
+    return (
+      <>
+        <div className="questions">
+          <div className="questionStage1" onClick={() => {
+            setStage("stage2")
+          }}>
+            <p>Pergunta {(props.index + 1)}</p>
+            <span className="arrowIcon"><ion-icon name="play-outline"></ion-icon></span>
           </div>
-          <div className="container">
-            <div className="box">
-              <img src="./assets/img/setinha.png" alt="ícone" onClick={() => {
-                setStage2(false)
-                setStage3(true)
-              }} />
+        </div>
+      </>
+    )
+  } else if (stage === "stage2") {
+    return (
+      <>
+        <div className="questions">
+          <div className="questionStage2">
+            <div className="questionTittle">
+              {props.question}
+            </div>
+            <div className="container">
+              <div className="box">
+                <img src="./assets/img/setinha.png" alt="ícone" onClick={() => {
+                  setStage("stage3")
+                }} />
+              </div>
             </div>
           </div>
         </div>
-        <div className={stage3 === false ? "questionStage3 hide" : "questionStage3"}>
-          {props.answer}
-          <div className="status">
-            <div className="dontRemember" onClick={() => {
-              setStage3(false);
-              setStage4(true);
-              setError(true);
-              errorPlay();
-              props.setCompleted(props.completed + 1);
-            }}> Não lembrei</div>
-            <div className="almostDontRemember" onClick={() => {
-              setStage3(false);
-              setStage4(true);
-              setDoubt(true);
-              doubtPlay();
-              props.setCompleted(props.completed + 1);
-            }}> Quase não lembrei</div>
-            <div className="zap" onClick={() => {
-              setStage3(false);
-              setStage4(true);
-              setCheck(true);
-              checkPlay();
-              props.setCompleted(props.completed + 1);
-            }}> Zap! </div>
+      </>
+    )
+  } else if (stage === "stage3") {
+    return (
+      <>
+        <div className="questions">
+          <div className="questionStage3">
+            {props.answer}
+            <div className="status">
+              <div className="dontRemember" onClick={() => {
+                setStage("stage4");
+                setStatus("error");
+                errorPlay();
+                props.setCompleted(props.completed + 1);
+              }}> Não lembrei</div>
+              <div className="almostDontRemember" onClick={() => {
+                setStage("stage4");
+                setStatus("doubt");
+                doubtPlay();
+                props.setCompleted(props.completed + 1);
+              }}> Quase não lembrei</div>
+              <div className="zap" onClick={() => {
+                setStage("stage4");
+                setStatus("check");
+                checkPlay();
+                props.setCompleted(props.completed + 1);
+              }}> Zap! </div>
+            </div>
           </div>
         </div>
-        <div className={stage4 === false ? "questionStage4 hide" : "questionStage4"}>
-          <p className={check === false ? "hide" : "checkColor"}>Pergunta</p>
-          <p className={doubt === false ? "hide" : "doubtColor"}>Pergunta</p>
-          <p className={error === false ? "hide" : "errorColor"}>Pergunta</p>
-          <span className={check === false ? "hitIcon hide " : "hitIcon checkColor"}><ion-icon name="checkmark-circle-sharp"></ion-icon></span>
-          <span className={doubt === false ? "doubtIcon hide" : "doubtIcon doubtColor"}><ion-icon name="help-circle-sharp"></ion-icon></span>
-          <span className={error === false ? "errorIcon hide" : "errorIcon errorColor"}><ion-icon name="close-circle-sharp"></ion-icon></span>
+      </>
+    )
+  } else if (stage === "stage4") {
+    return (
+      <>
+        <div className="questions">
+          <div className="questionStage4">
+            <p className={status === "check" ? "checkColor" : "hide"}>Pergunta</p>
+            <p className={status === "doubt" ? "doubtColor" : "hide"}>Pergunta</p>
+            <p className={status === "error" ? "errorColor" : "hide"}>Pergunta</p>
+            <span className={status === "check" ? "hitIcon checkColor" : "hitIcon hide "}><ion-icon name="checkmark-circle-sharp"></ion-icon></span>
+            <span className={status === "doubt" ? "doubtIcon doubtColor" : "doubtIcon hide"}><ion-icon name="help-circle-sharp"></ion-icon></span>
+            <span className={status === "error" ? "errorIcon errorColor" : "errorIcon hide"}><ion-icon name="close-circle-sharp"></ion-icon></span>
+          </div>
         </div>
-
-      </div>
-    </>
-  );
+      </>
+    )
+  } else {
+    return <></>
+  }
 }
 
-function shuffleArray(arr){
-  for(let i = (arr.length - 1); i > 0; i --){
+function shuffleArray(arr) {
+  for (let i = (arr.length - 1); i > 0; i--) {
     const randomNumber = Math.floor(Math.random() * (i + 1));
     [arr[i], arr[randomNumber]] = [arr[randomNumber], arr[i]];
   }

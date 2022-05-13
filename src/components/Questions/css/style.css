@@ -1,6 +1,7 @@
-.questions{
+.questions {
     font-family: 'Recursive', sans-serif;
 }
+
 .questionsHeader {
     height: 10vh;
 }
@@ -97,14 +98,15 @@ ion-icon {
     margin-left: 20px;
 }
 
-.questionTittle{
+.questionTittle {
     margin: 12px 0px 0px 10px;
 }
 
-.container{
+.container {
     position: relative;
 }
-.box{
+
+.box {
     position: absolute;
     bottom: 5px;
     right: 15px;
