@@ -1,5 +1,4 @@
 import React from 'react';
-import { useState } from 'react';
 import "./css/style.css";
 import Footer from './Footer'
 
@@ -60,9 +59,9 @@ export default function Questions() {
           <div className="questionsHeaderText"><b>ZapRecall</b></div>
         </header>
         <main className="questions">
-          {SCRAMBLEDQUESTIONS.map((question) => {
+          {SCRAMBLEDQUESTIONS.map((question, index) => {
             return (
-              <Question key={question.id} question={question.question} answer={question.answer} completed={count} setCompleted={setCount}/>
+              <Question key={question.id} question={question.question} answer={question.answer} completed={count} setCompleted={setCount} index={index}/>
             );
           })}
         </main>
@@ -90,7 +89,7 @@ function Question(props) {
           setStage1(false)
           setStage2(true)
         }}>
-          <p>Pergunta</p>
+          <p>Pergunta {(props.index + 1)}</p>
           <span className="arrowIcon"><ion-icon name="play-outline"></ion-icon></span>
         </div>
         <div className={stage2 === false ? "questionStage2 hide" : "questionStage2"} >
@@ -99,14 +98,14 @@ function Question(props) {
           </div>
           <div className="container">
             <div className="box">
-              <img src="./assets/img/setinha.png" onClick={() => {
+              <img src="./assets/img/setinha.png" alt="ícone" onClick={() => {
                 setStage2(false)
                 setStage3(true)
               }} />
             </div>
           </div>
         </div>
-        <div className={stage3 == false ? "questionStage3 hide" : "questionStage3"}>
+        <div className={stage3 === false ? "questionStage3 hide" : "questionStage3"}>
           {props.answer}
           <div className="status">
             <div className="dontRemember" onClick={() => {
