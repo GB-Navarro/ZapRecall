@@ -2,7 +2,6 @@ import "./css/style.css";
 import React from "react";
 
 export default function Footer(props){
-    const numberOfQuestions = 8;
     return (
         <footer className="questionsFooter">
             <div className="conclusionStatus"></div>
@@ -18,10 +17,7 @@ export default function Footer(props){
                     </p>
                 </div>
             </div>
-            <div className="conclusionNumbers">
-                <p> {props.completed}/{numberOfQuestions} CONCLUÍDOS </p>
-            </div>
-            <div className="conclusionIcons">
+            <div className="conclusionState">
                 {props.children}
             </div>
         </footer>

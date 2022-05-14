@@ -92,12 +92,15 @@ const NARUTOQUESTIONS = [
   }
 ];
 
-
 const SCRAMBLEDREACTQUESTIONS = shuffleArray(REACTQUESTIONS);
 const SCRAMBLEDNARUTOQUESTIONS = shuffleArray(NARUTOQUESTIONS)
 
 export default function Questions() {
+
   const [count, setCount] = React.useState(0);
+  const [iconsArray, setIconsArray] = React.useState([]);
+
+  const numberOfQuestions = 8;
 
   return (
     <>
@@ -112,12 +115,40 @@ export default function Questions() {
           {SCRAMBLEDREACTQUESTIONS.map((question, index) => {
             return (
               <Question key={question.id} question={question.question} answer={question.answer}
-                completed={count} setCompleted={setCount} index={index}/>
+                completed={count} setCompleted={setCount} index={index} iconsArray ={iconsArray}
+                setIconsArray={setIconsArray}/>
             );
           })}
         </main>
-        <Footer completed={count}>
-
+        <Footer>
+          <p> {count}/{numberOfQuestions} CONCLUÍDOS </p>
+          {
+            iconsArray.map((icon) => {
+              if(icon === "check"){
+                return(
+                  <>
+                    <span className="hitIcon checkColor"><ion-icon name="checkmark-circle-sharp"></ion-icon></span>
+                  </>
+                )
+              }else if(icon === "doubt"){
+                return(
+                  <>
+                    <span className="doubtIcon doubtColor"><ion-icon name="help-circle-sharp"></ion-icon></span>
+                  </>
+                )
+              }else if(icon === "error"){
+                return(
+                  <>
+                    <span className="errorIcon errorColor"><ion-icon name="close-circle-sharp"></ion-icon></span>
+                  </>
+                )
+              }else{
+                return(
+                  <></>
+                )
+              }
+            })
+          }
         </Footer>
       </section>
     </>
@@ -128,6 +159,7 @@ export default function Questions() {
 function Question(props) {
   const [stage, setStage] = React.useState("stage1");
   const [status, setStatus] = React.useState("");
+  console.log(props.iconsArray);
   
   const [checkPlay] = useSound(acertou);
   const [doubtPlay] = useSound(naosei);
@@ -175,18 +207,21 @@ function Question(props) {
               <div className="dontRemember" onClick={() => {
                 setStage("stage4");
                 setStatus("error");
+                props.setIconsArray([...props.iconsArray, "error"]);
                 errorPlay();
                 props.setCompleted(props.completed + 1);
               }}> Não lembrei</div>
               <div className="almostDontRemember" onClick={() => {
                 setStage("stage4");
                 setStatus("doubt");
+                props.setIconsArray([...props.iconsArray, "doubt"]);
                 doubtPlay();
                 props.setCompleted(props.completed + 1);
               }}> Quase não lembrei</div>
               <div className="zap" onClick={() => {
                 setStage("stage4");
                 setStatus("check");
+                props.setIconsArray([...props.iconsArray, "check"]);
                 checkPlay();
                 props.setCompleted(props.completed + 1);
               }}> Zap! </div>

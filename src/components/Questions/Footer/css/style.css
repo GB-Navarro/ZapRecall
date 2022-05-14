@@ -15,3 +15,8 @@
 .conclusionMessages div p {
     font-family: 'Recursive', sans-serif;
 }
+
+.conclusionState{
+    font-family: 'Recursive', sans-serif;
+    color:#333333;
+}
