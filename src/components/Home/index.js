@@ -14,7 +14,6 @@ export default function Home(props) {
           <label htmlFor="deck">Escolha o seu deck</label>
           <select name="deck" onChange={(e) => {
               props.setDeckType(e.target.value);
-              console.log(props.deckType)
             }}>
             <option value="React">React</option>
             <option value="Narutin">Narutin</option>
@@ -24,7 +23,9 @@ export default function Home(props) {
       <form>
         <div className="zapGoals">
           <label htmlFor="goal">Qual é a sua meta de zaps?</label>
-          <input type="text" name="goal">
+          <input type="text" name="goal" onChange={(e) => {
+            props.setZapsGoal(e.target.value);
+          }}>
           </input>
         </div>
       </form>

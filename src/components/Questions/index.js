@@ -100,6 +100,7 @@ export default function Questions(props) {
 
   const [count, setCount] = React.useState(0);
   const [iconsArray, setIconsArray] = React.useState([]);
+  const [goalCheck, setGoalCheck] = React.useState(0);
 
   const numberOfQuestions = 8;
 
@@ -161,11 +162,34 @@ export default function Questions(props) {
               }
             })
           }
+          {
+            count === numberOfQuestions ? (verifyGoal() === true ? alert("Você cumpriu a sua meta") : alert("Você não cumpriu a sua meta")) : <></>
+          }
         </Footer>
       </section>
     </>
 
   );
+  
+  function zapsCheck(iconsArray){
+    let zaps = 0;
+    for(let i = 0; i < iconsArray.length; i++){
+      if(iconsArray[i] === "check"){
+        zaps = zaps + 1;
+      }
+    }
+    return zaps;
+  }
+
+  function verifyGoal(zaps){
+    zaps = zapsCheck(iconsArray);
+    if(zaps === parseInt(props.zapsGoal)){
+      return true;
+    }else{
+      return false;
+    }
+    
+  }
 }
 
 function Question(props) {
