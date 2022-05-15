@@ -6,6 +6,7 @@ import acertou from "./assets/audio/acertou.mp3";
 import naosei from "./assets/audio/naosei.mp3";
 import errou from "./assets/audio/errou.mp3";
 
+
 const REACTQUESTIONS = [
   {
     question: "O que é JSX?",
@@ -95,7 +96,7 @@ const NARUTOQUESTIONS = [
 const SCRAMBLEDREACTQUESTIONS = shuffleArray(REACTQUESTIONS);
 const SCRAMBLEDNARUTOQUESTIONS = shuffleArray(NARUTOQUESTIONS)
 
-export default function Questions() {
+export default function Questions(props) {
 
   const [count, setCount] = React.useState(0);
   const [iconsArray, setIconsArray] = React.useState([]);
@@ -112,13 +113,24 @@ export default function Questions() {
           <div className="questionsHeaderText"><b>ZapRecall</b></div>
         </header>
         <main className="questions">
-          {SCRAMBLEDREACTQUESTIONS.map((question, index) => {
+          {props.deckType === "React" ? 
+          SCRAMBLEDREACTQUESTIONS.map((question, index) => {
             return (
               <Question key={question.id} question={question.question} answer={question.answer}
                 completed={count} setCompleted={setCount} index={index} iconsArray ={iconsArray}
                 setIconsArray={setIconsArray}/>
             );
-          })}
+          })
+          :
+          SCRAMBLEDNARUTOQUESTIONS.map((question, index) => {
+            return (
+              <Question key={question.id} question={question.question} answer={question.answer}
+                completed={count} setCompleted={setCount} index={index} iconsArray ={iconsArray}
+                setIconsArray={setIconsArray}/>
+            );
+          })
+          }
+          {}
         </main>
         <Footer>
           <p> {count}/{numberOfQuestions} CONCLUÍDOS </p>
@@ -159,7 +171,6 @@ export default function Questions() {
 function Question(props) {
   const [stage, setStage] = React.useState("stage1");
   const [status, setStatus] = React.useState("");
-  console.log(props.iconsArray);
   
   const [checkPlay] = useSound(acertou);
   const [doubtPlay] = useSound(naosei);
@@ -208,21 +219,21 @@ function Question(props) {
                 setStage("stage4");
                 setStatus("error");
                 props.setIconsArray([...props.iconsArray, "error"]);
-                errorPlay();
+                errorPlay()
                 props.setCompleted(props.completed + 1);
               }}> Não lembrei</div>
               <div className="almostDontRemember" onClick={() => {
                 setStage("stage4");
                 setStatus("doubt");
                 props.setIconsArray([...props.iconsArray, "doubt"]);
-                doubtPlay();
+                doubtPlay()
                 props.setCompleted(props.completed + 1);
               }}> Quase não lembrei</div>
               <div className="zap" onClick={() => {
                 setStage("stage4");
                 setStatus("check");
                 props.setIconsArray([...props.iconsArray, "check"]);
-                checkPlay();
+                checkPlay()
                 props.setCompleted(props.completed + 1);
               }}> Zap! </div>
             </div>

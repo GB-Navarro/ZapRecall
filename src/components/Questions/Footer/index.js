@@ -1,7 +1,7 @@
 import "./css/style.css";
 import React from "react";
 
-export default function Footer(props){
+export default function Footer(props) {
     return (
         <footer className="questionsFooter">
             <div className="conclusionStatus"></div>
@@ -13,7 +13,7 @@ export default function Footer(props){
                 <div className="message2 hide">
                     <p><b> 🙄 Putz... </b></p>
                     <p> Ainda faltam alguns...
-                        <br/>  
+                        <br />
                     </p>
                 </div>
             </div>
