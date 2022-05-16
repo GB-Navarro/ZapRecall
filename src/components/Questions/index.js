@@ -163,7 +163,7 @@ export default function Questions(props) {
             })
           }
           {
-            count === numberOfQuestions ? (verifyGoal() === true ? console.log("Você cumpriu a sua meta") : console.log("Você não cumpriu a sua meta")) : <></>
+            count === numberOfQuestions ? (verifyGoal(props.zapsGoal) === true ? alert("Você cumpriu a sua meta") : alert("Você não cumpriu a sua meta")) : <></>
           }
           {/*{teste}
           {
@@ -186,9 +186,9 @@ export default function Questions(props) {
     return zaps;
   }
 
-  function verifyGoal(zaps){
-    zaps = zapsCheck(iconsArray);
-    if(zaps === parseInt(props.zapsGoal)){
+  function verifyGoal(goal){
+    let zaps = zapsCheck(iconsArray);
+    if(zaps >= parseInt(goal)){
       return true;
     }else{
       return false;
