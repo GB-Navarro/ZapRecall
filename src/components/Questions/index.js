@@ -100,7 +100,7 @@ export default function Questions(props) {
 
   const [count, setCount] = React.useState(0);
   const [iconsArray, setIconsArray] = React.useState([]);
-  const [goalCheck, setGoalCheck] = React.useState(0);
+  /* const [teste, setTeste] = React.useState(""); XABU (Too many renders)*/
 
   const numberOfQuestions = 8;
 
@@ -109,7 +109,7 @@ export default function Questions(props) {
       <section className="screen2 hide">
         <header className="questionsHeader">
           <div className="questionsHeaderLogo">
-            <img src="./assets/img/logo-pequeno.png" alt="logo pequeno" />
+            <img src="./assets/img/logo-pequeno.png" className="questionsHeaderImg" alt="logo pequeno" />
           </div>
           <div className="questionsHeaderText"><b>ZapRecall</b></div>
         </header>
@@ -133,7 +133,7 @@ export default function Questions(props) {
           }
           {}
         </main>
-        <Footer>
+        <Footer count={count} numberOfQuestions={numberOfQuestions}>
           <p> {count}/{numberOfQuestions} CONCLUÍDOS </p>
           {
             iconsArray.map((icon) => {
@@ -163,8 +163,13 @@ export default function Questions(props) {
             })
           }
           {
-            count === numberOfQuestions ? (verifyGoal() === true ? alert("Você cumpriu a sua meta") : alert("Você não cumpriu a sua meta")) : <></>
+            count === numberOfQuestions ? (verifyGoal() === true ? console.log("Você cumpriu a sua meta") : console.log("Você não cumpriu a sua meta")) : <></>
           }
+          {/*{teste}
+          {
+            count === numberOfQuestions ? setTeste(<h1> Olá mundo </h1>) : <></>
+          } XABU */}
+
         </Footer>
       </section>
     </>

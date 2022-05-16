@@ -2,6 +2,7 @@ import "./css/style.css";
 import React from "react";
 
 export default function Footer(props) {
+    /* const [restartButton, setRestartButton] = React.useState(""); XABU (too many renders) */
     return (
         <footer className="questionsFooter">
             <div className="conclusionStatus"></div>
@@ -19,6 +20,10 @@ export default function Footer(props) {
             </div>
             <div className="conclusionState">
                 {props.children}
+            </div>
+            <div className="restart">
+                {/*{restartButton}
+                {props.count === props.numberOfQuestions ? setRestartButton(<h1>teste</h1>) : <></>} XABU*/ }
             </div>
         </footer>
     )
